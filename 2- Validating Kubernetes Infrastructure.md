@@ -207,9 +207,12 @@ Events:
   Normal  Started    2m1s   kubelet            Started container nginx
 ```
 
+## at the end, we will delete the test deployment
 
 ```bash
+root@master:~# kubectl delete -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 
+deployment.apps "nginx-deployment" deleted
 ```
 
 
