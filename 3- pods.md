@@ -342,7 +342,7 @@ root@master:~# kubectl get pods nginx-pod -o json
 ```
 
 
-print pods from all name spaces: 
+## print pods from all name spaces: 
 ```bash
 root@master:~# kubectl get pods -A
 NAMESPACE              NAME                                         READY   STATUS    RESTARTS        AGE
@@ -366,7 +366,6 @@ tigera-operator        tigera-operator-b876f5799-ffkg2              1/1     Runn
 ```
 
 
-print pods from all name spaces: 
 ```bash
 root@master:~# kubectl get pods --all-namespaces
 NAMESPACE              NAME                                         READY   STATUS    RESTARTS        AGE
@@ -390,7 +389,7 @@ tigera-operator        tigera-operator-b876f5799-ffkg2              1/1     Runn
 
 
 
-## describe pod
+## describe pods
 
 ```bash
 root@master:~# kubectl describe pod nginx-pod 
@@ -450,7 +449,7 @@ Events:
 
 
 
-## Edit pod
+## Edit pods
 
 ```bash
 export KUBE_EDITOR='nano'
@@ -506,7 +505,7 @@ pod "nginx-pod" deleted
 ```
 
 
-## TOP
+## Get info of pods using TOP command
 
 ```bash
 kubectl top pods
