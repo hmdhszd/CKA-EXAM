@@ -165,18 +165,6 @@ pod "multi-container-pod" deleted
 
 
 
-check the status of the pod:
-
-```bash
-root@master:~# kubectl get pods
-
-NAME                  READY   STATUS    RESTARTS   AGE
-multi-container-pod   2/2     Running   0          18s
-
-```
-
-
-
 
 ## Create a pod with kubectl run command
 
@@ -189,17 +177,17 @@ pod/nginx-pod created
 
 ```bash
 root@master:~# kubectl get pods
-
-NAME        READY   STATUS    RESTARTS   AGE
-nginx-pod   1/1     Running   0          7s
+NAME                  READY   STATUS    RESTARTS   AGE
+multi-container-pod   2/2     Running   0          7m18s
+nginx-pod             1/1     Running   0          24m
 ```
 
 
 ```bash
 root@master:~# kubectl get pods -o wide
 NAME                  READY   STATUS    RESTARTS   AGE     IP              NODE     NOMINATED NODE   READINESS GATES
-multi-container-pod   2/2     Running   0          7m20s   10.244.171.83   worker   <none>           <none>
-
+multi-container-pod   2/2     Running   0          6m54s   10.244.171.94   worker   <none>           <none>
+nginx-pod             1/1     Running   0          24m     10.244.171.93   worker   <none>           <none>
 ```
 
 ## print pods with d
@@ -217,7 +205,6 @@ root@master:~# k get pods -l app=nginx
 
 NAME                  READY   STATUS    RESTARTS      AGE
 multi-container-pod   2/2     Running   2 (21m ago)   15h
-
 ```
 
 
@@ -668,11 +655,4 @@ kubectl top pods --sort-by cpu
 kubectl top pods --sort-by memory
 kubectl top pods --sort-by cpu -n kube-system > cpu.txt
 kubectl top pods --sort-by memory --all-namespaces
-```
-
-
-## 
-
-```bash
-
 ```
