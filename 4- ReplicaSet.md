@@ -196,7 +196,7 @@ metadata:
 ```
 
 
-## json output
+## JSON output
 
 ```bash
 root@master:~# kubectl get rs -o json
@@ -354,8 +354,11 @@ replicaset.apps/nginx-rs edited
 ## Show logs of a ReplicaSets of a ReplicaSet
 
 ```bash
-root@master:~# kubectl logs nginx-rs-
-nginx-rs-6xv65  nginx-rs-ggtfp  nginx-rs-lcl5d
+root@master:~# kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+nginx-rs-55ld9   1/1     Running   0          26m
+nginx-rs-gdl2j   1/1     Running   0          26m
+nginx-rs-l2rrr   1/1     Running   0          26m
 
 
 root@master:~# kubectl logs nginx-rs-6xv65
