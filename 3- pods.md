@@ -66,418 +66,361 @@ multi-container-pod   2/2     Running   0          7m20s   10.244.171.83   worke
 ```
 
 
+
 ## YAML output
 
 ```bash
-root@master:~# kubectl get pods -o yaml
-
+root@master:~# kubectl get pods nginx-pod -o yaml
 apiVersion: v1
-items:
-- apiVersion: v1
-  kind: Pod
-  metadata:
-    annotations:
-      cni.projectcalico.org/containerID: c6bb6a7e0cc37b617eba71209d99e0560654e202136f5a577f31d1160299add5
-      cni.projectcalico.org/podIP: 10.244.171.83/32
-      cni.projectcalico.org/podIPs: 10.244.171.83/32
-      kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"labels":{"app":"nginx","tier":"dev"},"name":"multi-container-pod","namespace":"default"},"spec":{"containers":[{"env":[{"name":"DEMO_GREETING_ENV","value":"Hello from the environement"}],"image":"nginx","name":"nginx-container","ports":[{"containerPort":80}]},{"image":"redis","name":"redis-container"}]}}
-    creationTimestamp: "2022-04-07T15:22:24Z"
-    labels:
-      app: nginx
-      tier: dev
-    name: multi-container-pod
-    namespace: default
-    resourceVersion: "68655"
-    uid: 606e68b5-2f7c-4783-830a-eb4f3de44c74
-  spec:
-    containers:
-    - env:
-      - name: DEMO_GREETING_ENV
-        value: Hello from the environement
-      image: nginx
-      imagePullPolicy: Always
-      name: nginx-container
-      ports:
-      - containerPort: 80
-        protocol: TCP
-      resources: {}
-      terminationMessagePath: /dev/termination-log
-      terminationMessagePolicy: File
-      volumeMounts:
-      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-        name: kube-api-access-mthq5
-        readOnly: true
-    - image: redis
-      imagePullPolicy: Always
-      name: redis-container
-      resources: {}
-      terminationMessagePath: /dev/termination-log
-      terminationMessagePolicy: File
-      volumeMounts:
-      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-        name: kube-api-access-mthq5
-        readOnly: true
-    dnsPolicy: ClusterFirst
-    enableServiceLinks: true
-    nodeName: worker
-    preemptionPolicy: PreemptLowerPriority
-    priority: 0
-    restartPolicy: Always
-    schedulerName: default-scheduler
-    securityContext: {}
-    serviceAccount: default
-    serviceAccountName: default
-    terminationGracePeriodSeconds: 30
-    tolerations:
-    - effect: NoExecute
-      key: node.kubernetes.io/not-ready
-      operator: Exists
-      tolerationSeconds: 300
-    - effect: NoExecute
-      key: node.kubernetes.io/unreachable
-      operator: Exists
-      tolerationSeconds: 300
-    volumes:
-    - name: kube-api-access-mthq5
-      projected:
-        defaultMode: 420
-        sources:
-        - serviceAccountToken:
-            expirationSeconds: 3607
-            path: token
-        - configMap:
-            items:
-            - key: ca.crt
-              path: ca.crt
-            name: kube-root-ca.crt
-        - downwardAPI:
-            items:
-            - fieldRef:
-                apiVersion: v1
-                fieldPath: metadata.namespace
-              path: namespace
-  status:
-    conditions:
-    - lastProbeTime: null
-      lastTransitionTime: "2022-04-07T15:22:24Z"
-      status: "True"
-      type: Initialized
-    - lastProbeTime: null
-      lastTransitionTime: "2022-04-07T15:22:33Z"
-      status: "True"
-      type: Ready
-    - lastProbeTime: null
-      lastTransitionTime: "2022-04-07T15:22:33Z"
-      status: "True"
-      type: ContainersReady
-    - lastProbeTime: null
-      lastTransitionTime: "2022-04-07T15:22:24Z"
-      status: "True"
-      type: PodScheduled
-    containerStatuses:
-    - containerID: docker://4f64e48a131a50a29421217b550f71755f9fd2f90b044d01f1905fd05552a5ab
-      image: nginx:latest
-      imageID: docker-pullable://nginx@sha256:2275af0f20d71b293916f1958f8497f987b8d8fd8113df54635f2a5915002bf1
-      lastState: {}
-      name: nginx-container
-      ready: true
-      restartCount: 0
-      started: true
-      state:
-        running:
-          startedAt: "2022-04-07T15:22:29Z"
-    - containerID: docker://61e4cfb5e61648db0794e1acd137422888452445413fc2449c6f281537fec4b5
-      image: redis:latest
-      imageID: docker-pullable://redis@sha256:69a3ab2516b560690e37197b71bc61ba245aafe4525ebdece1d8a0bc5669e3e2
-      lastState: {}
-      name: redis-container
-      ready: true
-      restartCount: 0
-      started: true
-      state:
-        running:
-          startedAt: "2022-04-07T15:22:32Z"
-    hostIP: 192.168.100.104
-    phase: Running
-    podIP: 10.244.171.83
-    podIPs:
-    - ip: 10.244.171.83
-    qosClass: BestEffort
-    startTime: "2022-04-07T15:22:24Z"
-kind: List
+kind: Pod
 metadata:
-  resourceVersion: ""
-  selfLink: ""
+  annotations:
+    cni.projectcalico.org/containerID: 56d5e37c1dca912dd8a8ee4e056bcc7c5c85dafd69c2f5e1125c614fe0387759
+    cni.projectcalico.org/podIP: 10.244.171.93/32
+    cni.projectcalico.org/podIPs: 10.244.171.93/32
+  creationTimestamp: "2022-04-08T07:01:11Z"
+  labels:
+    run: nginx-pod
+  name: nginx-pod
+  namespace: default
+  resourceVersion: "77445"
+  uid: 63525d07-4990-4435-aa10-5a3e3ebbf454
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx-pod
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-shmkx
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: worker
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-shmkx
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-04-08T07:01:11Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-04-08T07:01:11Z"
+    message: 'containers with unready status: [nginx-pod]'
+    reason: ContainersNotReady
+    status: "False"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-04-08T07:01:11Z"
+    message: 'containers with unready status: [nginx-pod]'
+    reason: ContainersNotReady
+    status: "False"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-04-08T07:01:11Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - image: nginx
+    imageID: ""
+    lastState: {}
+    name: nginx-pod
+    ready: false
+    restartCount: 0
+    started: false
+    state:
+      waiting:
+        reason: ContainerCreating
+  hostIP: 192.168.100.104
+  phase: Pending
+  qosClass: BestEffort
+  startTime: "2022-04-08T07:01:11Z"
 ```
 
 
 ## json output
 
 ```bash
-root@master:~# kubectl get pods -o json
-
+root@master:~# kubectl get pods nginx-pod -o json
 {
     "apiVersion": "v1",
-    "items": [
-        {
-            "apiVersion": "v1",
-            "kind": "Pod",
-            "metadata": {
-                "annotations": {
-                    "cni.projectcalico.org/containerID": "c6bb6a7e0cc37b617eba71209d99e0560654e202136f5a577f31d1160299add5",
-                    "cni.projectcalico.org/podIP": "10.244.171.83/32",
-                    "cni.projectcalico.org/podIPs": "10.244.171.83/32",
-                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nginx\",\"tier\":\"dev\"},\"name\":\"multi-container-pod\",\"namespace\":\"default\"},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"DEMO_GREETING_ENV\",\"value\":\"Hello from the environement\"}],\"image\":\"nginx\",\"name\":\"nginx-container\",\"ports\":[{\"containerPort\":80}]},{\"image\":\"redis\",\"name\":\"redis-container\"}]}}\n"
-                },
-                "creationTimestamp": "2022-04-07T15:22:24Z",
-                "labels": {
-                    "app": "nginx",
-                    "tier": "dev"
-                },
-                "name": "multi-container-pod",
-                "namespace": "default",
-                "resourceVersion": "68655",
-                "uid": "606e68b5-2f7c-4783-830a-eb4f3de44c74"
-            },
-            "spec": {
-                "containers": [
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "cni.projectcalico.org/containerID": "56d5e37c1dca912dd8a8ee4e056bcc7c5c85dafd69c2f5e1125c614fe0387759",
+            "cni.projectcalico.org/podIP": "10.244.171.93/32",
+            "cni.projectcalico.org/podIPs": "10.244.171.93/32"
+        },
+        "creationTimestamp": "2022-04-08T07:01:11Z",
+        "labels": {
+            "run": "nginx-pod"
+        },
+        "name": "nginx-pod",
+        "namespace": "default",
+        "resourceVersion": "77470",
+        "uid": "63525d07-4990-4435-aa10-5a3e3ebbf454"
+    },
+    "spec": {
+        "containers": [
+            {
+                "image": "nginx",
+                "imagePullPolicy": "Always",
+                "name": "nginx-pod",
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
                     {
-                        "env": [
-                            {
-                                "name": "DEMO_GREETING_ENV",
-                                "value": "Hello from the environement"
-                            }
-                        ],
-                        "image": "nginx",
-                        "imagePullPolicy": "Always",
-                        "name": "nginx-container",
-                        "ports": [
-                            {
-                                "containerPort": 80,
-                                "protocol": "TCP"
-                            }
-                        ],
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
-                                "name": "kube-api-access-mthq5",
-                                "readOnly": true
-                            }
-                        ]
-                    },
-                    {
-                        "image": "redis",
-                        "imagePullPolicy": "Always",
-                        "name": "redis-container",
-                        "resources": {},
-                        "terminationMessagePath": "/dev/termination-log",
-                        "terminationMessagePolicy": "File",
-                        "volumeMounts": [
-                            {
-                                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
-                                "name": "kube-api-access-mthq5",
-                                "readOnly": true
-                            }
-                        ]
-                    }
-                ],
-                "dnsPolicy": "ClusterFirst",
-                "enableServiceLinks": true,
-                "nodeName": "worker",
-                "preemptionPolicy": "PreemptLowerPriority",
-                "priority": 0,
-                "restartPolicy": "Always",
-                "schedulerName": "default-scheduler",
-                "securityContext": {},
-                "serviceAccount": "default",
-                "serviceAccountName": "default",
-                "terminationGracePeriodSeconds": 30,
-                "tolerations": [
-                    {
-                        "effect": "NoExecute",
-                        "key": "node.kubernetes.io/not-ready",
-                        "operator": "Exists",
-                        "tolerationSeconds": 300
-                    },
-                    {
-                        "effect": "NoExecute",
-                        "key": "node.kubernetes.io/unreachable",
-                        "operator": "Exists",
-                        "tolerationSeconds": 300
-                    }
-                ],
-                "volumes": [
-                    {
-                        "name": "kube-api-access-mthq5",
-                        "projected": {
-                            "defaultMode": 420,
-                            "sources": [
-                                {
-                                    "serviceAccountToken": {
-                                        "expirationSeconds": 3607,
-                                        "path": "token"
-                                    }
-                                },
-                                {
-                                    "configMap": {
-                                        "items": [
-                                            {
-                                                "key": "ca.crt",
-                                                "path": "ca.crt"
-                                            }
-                                        ],
-                                        "name": "kube-root-ca.crt"
-                                    }
-                                },
-                                {
-                                    "downwardAPI": {
-                                        "items": [
-                                            {
-                                                "fieldRef": {
-                                                    "apiVersion": "v1",
-                                                    "fieldPath": "metadata.namespace"
-                                                },
-                                                "path": "namespace"
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-shmkx",
+                        "readOnly": true
                     }
                 ]
-            },
-            "status": {
-                "conditions": [
-                    {
-                        "lastProbeTime": null,
-                        "lastTransitionTime": "2022-04-07T15:22:24Z",
-                        "status": "True",
-                        "type": "Initialized"
-                    },
-                    {
-                        "lastProbeTime": null,
-                        "lastTransitionTime": "2022-04-07T15:22:33Z",
-                        "status": "True",
-                        "type": "Ready"
-                    },
-                    {
-                        "lastProbeTime": null,
-                        "lastTransitionTime": "2022-04-07T15:22:33Z",
-                        "status": "True",
-                        "type": "ContainersReady"
-                    },
-                    {
-                        "lastProbeTime": null,
-                        "lastTransitionTime": "2022-04-07T15:22:24Z",
-                        "status": "True",
-                        "type": "PodScheduled"
-                    }
-                ],
-                "containerStatuses": [
-                    {
-                        "containerID": "docker://4f64e48a131a50a29421217b550f71755f9fd2f90b044d01f1905fd05552a5ab",
-                        "image": "nginx:latest",
-                        "imageID": "docker-pullable://nginx@sha256:2275af0f20d71b293916f1958f8497f987b8d8fd8113df54635f2a5915002bf1",
-                        "lastState": {},
-                        "name": "nginx-container",
-                        "ready": true,
-                        "restartCount": 0,
-                        "started": true,
-                        "state": {
-                            "running": {
-                                "startedAt": "2022-04-07T15:22:29Z"
-                            }
-                        }
-                    },
-                    {
-                        "containerID": "docker://61e4cfb5e61648db0794e1acd137422888452445413fc2449c6f281537fec4b5",
-                        "image": "redis:latest",
-                        "imageID": "docker-pullable://redis@sha256:69a3ab2516b560690e37197b71bc61ba245aafe4525ebdece1d8a0bc5669e3e2",
-                        "lastState": {},
-                        "name": "redis-container",
-                        "ready": true,
-                        "restartCount": 0,
-                        "started": true,
-                        "state": {
-                            "running": {
-                                "startedAt": "2022-04-07T15:22:32Z"
-                            }
-                        }
-                    }
-                ],
-                "hostIP": "192.168.100.104",
-                "phase": "Running",
-                "podIP": "10.244.171.83",
-                "podIPs": [
-                    {
-                        "ip": "10.244.171.83"
-                    }
-                ],
-                "qosClass": "BestEffort",
-                "startTime": "2022-04-07T15:22:24Z"
             }
-        }
-    ],
-    "kind": "List",
-    "metadata": {
-        "resourceVersion": "",
-        "selfLink": ""
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "worker",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "name": "kube-api-access-shmkx",
+                "projected": {
+                    "defaultMode": 420,
+                    "sources": [
+                        {
+                            "serviceAccountToken": {
+                                "expirationSeconds": 3607,
+                                "path": "token"
+                            }
+                        },
+                        {
+                            "configMap": {
+                                "items": [
+                                    {
+                                        "key": "ca.crt",
+                                        "path": "ca.crt"
+                                    }
+                                ],
+                                "name": "kube-root-ca.crt"
+                            }
+                        },
+                        {
+                            "downwardAPI": {
+                                "items": [
+                                    {
+                                        "fieldRef": {
+                                            "apiVersion": "v1",
+                                            "fieldPath": "metadata.namespace"
+                                        },
+                                        "path": "namespace"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2022-04-08T07:01:11Z",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2022-04-08T07:01:20Z",
+                "status": "True",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2022-04-08T07:01:20Z",
+                "status": "True",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2022-04-08T07:01:11Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "docker://ea3ba8877b7c8291681ac52beca8e74e5b170704f1be20ed86add5b8f3163c51",
+                "image": "nginx:latest",
+                "imageID": "docker-pullable://nginx@sha256:2275af0f20d71b293916f1958f8497f987b8d8fd8113df54635f2a5915002bf1",
+                "lastState": {},
+                "name": "nginx-pod",
+                "ready": true,
+                "restartCount": 0,
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2022-04-08T07:01:18Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "192.168.100.104",
+        "phase": "Running",
+        "podIP": "10.244.171.93",
+        "podIPs": [
+            {
+                "ip": "10.244.171.93"
+            }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2022-04-08T07:01:11Z"
     }
 }
+
 ```
+
+
+print pods from all name spaces: 
+```bash
+root@master:~# kubectl get pods -A
+NAMESPACE              NAME                                         READY   STATUS    RESTARTS        AGE
+default                multi-container-pod                          2/2     Running   2 (5m29s ago)   15h
+kube-system            calico-kube-controllers-56fcbf9d6b-zkhc2     1/1     Running   10              23h
+kube-system            calico-node-5hfv2                            1/1     Running   2 (5m40s ago)   23h
+kube-system            calico-node-wb5cc                            1/1     Running   3 (96m ago)     23h
+kube-system            coredns-64897985d-bzhgt                      1/1     Running   2 (14h ago)     23h
+kube-system            coredns-64897985d-jv568                      1/1     Running   2 (14h ago)     24h
+kube-system            etcd-master                                  1/1     Running   2 (5m40s ago)   24h
+kube-system            kube-apiserver-master                        1/1     Running   3 (5m40s ago)   24h
+kube-system            kube-controller-manager-master               1/1     Running   4 (5m40s ago)   24h
+kube-system            kube-proxy-g7wcd                             1/1     Running   3 (96m ago)     24h
+kube-system            kube-proxy-z6zpg                             1/1     Running   2 (5m40s ago)   24h
+kube-system            kube-scheduler-master                        1/1     Running   4 (5m40s ago)   24h
+kube-system            metrics-server-847dcc659d-9sjvh              0/1     Running   1 (96m ago)     15h
+kubernetes-dashboard   dashboard-metrics-scraper-799d786dbf-bgc6h   1/1     Running   3 (96m ago)     23h
+kubernetes-dashboard   kubernetes-dashboard-fb8648fd9-pmm5c         1/1     Running   7 (96m ago)     23h
+tigera-operator        tigera-operator-b876f5799-ffkg2              1/1     Running   6 (4m47s ago)   23h
+
+```
+
+
+print pods from all name spaces: 
+```bash
+root@master:~# kubectl get pods --all-namespaces
+NAMESPACE              NAME                                         READY   STATUS    RESTARTS        AGE
+default                multi-container-pod                          2/2     Running   2 (7m58s ago)   15h
+kube-system            calico-kube-controllers-56fcbf9d6b-zkhc2     1/1     Running   10              23h
+kube-system            calico-node-5hfv2                            1/1     Running   2 (8m9s ago)    23h
+kube-system            calico-node-wb5cc                            1/1     Running   3 (98m ago)     23h
+kube-system            coredns-64897985d-bzhgt                      1/1     Running   2 (14h ago)     23h
+kube-system            coredns-64897985d-jv568                      1/1     Running   2 (14h ago)     24h
+kube-system            etcd-master                                  1/1     Running   2 (8m9s ago)    24h
+kube-system            kube-apiserver-master                        1/1     Running   3 (8m9s ago)    24h
+kube-system            kube-controller-manager-master               1/1     Running   4 (8m9s ago)    24h
+kube-system            kube-proxy-g7wcd                             1/1     Running   3 (98m ago)     24h
+kube-system            kube-proxy-z6zpg                             1/1     Running   2 (8m9s ago)    24h
+kube-system            kube-scheduler-master                        1/1     Running   4 (8m9s ago)    24h
+kube-system            metrics-server-847dcc659d-9sjvh              0/1     Running   1 (98m ago)     15h
+kubernetes-dashboard   dashboard-metrics-scraper-799d786dbf-bgc6h   1/1     Running   3 (98m ago)     23h
+kubernetes-dashboard   kubernetes-dashboard-fb8648fd9-pmm5c         1/1     Running   7 (98m ago)     23h
+tigera-operator        tigera-operator-b876f5799-ffkg2              1/1     Running   6 (7m16s ago)   23h
+```
+
+
 
 ## describe pod
 
 ```bash
-
-root@master:~# kubectl describe pod multi-container-pod 
-Name:         multi-container-pod
+root@master:~# kubectl describe pod nginx-pod 
+Name:         nginx-pod
 Namespace:    default
 Priority:     0
 Node:         worker/192.168.100.104
-Start Time:   Thu, 07 Apr 2022 15:22:24 +0000
-Labels:       app=nginx
-              tier=dev
-Annotations:  cni.projectcalico.org/containerID: c6bb6a7e0cc37b617eba71209d99e0560654e202136f5a577f31d1160299add5
-              cni.projectcalico.org/podIP: 10.244.171.83/32
-              cni.projectcalico.org/podIPs: 10.244.171.83/32
+Start Time:   Fri, 08 Apr 2022 07:01:11 +0000
+Labels:       run=nginx-pod
+Annotations:  cni.projectcalico.org/containerID: 56d5e37c1dca912dd8a8ee4e056bcc7c5c85dafd69c2f5e1125c614fe0387759
+              cni.projectcalico.org/podIP: 10.244.171.93/32
+              cni.projectcalico.org/podIPs: 10.244.171.93/32
 Status:       Running
-IP:           10.244.171.83
+IP:           10.244.171.93
 IPs:
-  IP:  10.244.171.83
+  IP:  10.244.171.93
 Containers:
-  nginx-container:
-    Container ID:   docker://4f64e48a131a50a29421217b550f71755f9fd2f90b044d01f1905fd05552a5ab
+  nginx-pod:
+    Container ID:   docker://ea3ba8877b7c8291681ac52beca8e74e5b170704f1be20ed86add5b8f3163c51
     Image:          nginx
     Image ID:       docker-pullable://nginx@sha256:2275af0f20d71b293916f1958f8497f987b8d8fd8113df54635f2a5915002bf1
-    Port:           80/TCP
-    Host Port:      0/TCP
-    State:          Running
-      Started:      Thu, 07 Apr 2022 15:22:29 +0000
-    Ready:          True
-    Restart Count:  0
-    Environment:
-      DEMO_GREETING_ENV:  Hello from the environement
-    Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-mthq5 (ro)
-  redis-container:
-    Container ID:   docker://61e4cfb5e61648db0794e1acd137422888452445413fc2449c6f281537fec4b5
-    Image:          redis
-    Image ID:       docker-pullable://redis@sha256:69a3ab2516b560690e37197b71bc61ba245aafe4525ebdece1d8a0bc5669e3e2
     Port:           <none>
     Host Port:      <none>
     State:          Running
-      Started:      Thu, 07 Apr 2022 15:22:32 +0000
+      Started:      Fri, 08 Apr 2022 07:01:18 +0000
     Ready:          True
     Restart Count:  0
     Environment:    <none>
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-mthq5 (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-shmkx (ro)
 Conditions:
   Type              Status
   Initialized       True 
@@ -485,7 +428,7 @@ Conditions:
   ContainersReady   True 
   PodScheduled      True 
 Volumes:
-  kube-api-access-mthq5:
+  kube-api-access-shmkx:
     Type:                    Projected (a volume that contains injected data from multiple sources)
     TokenExpirationSeconds:  3607
     ConfigMapName:           kube-root-ca.crt
@@ -496,17 +439,13 @@ Node-Selectors:              <none>
 Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:
-  Type    Reason     Age   From               Message
-  ----    ------     ----  ----               -------
-  Normal  Scheduled  11m   default-scheduler  Successfully assigned default/multi-container-pod to worker
-  Normal  Pulling    11m   kubelet            Pulling image "nginx"
-  Normal  Pulled     10m   kubelet            Successfully pulled image "nginx" in 3.204279813s
-  Normal  Created    10m   kubelet            Created container nginx-container
-  Normal  Started    10m   kubelet            Started container nginx-container
-  Normal  Pulling    10m   kubelet            Pulling image "redis"
-  Normal  Pulled     10m   kubelet            Successfully pulled image "redis" in 3.04616718s
-  Normal  Created    10m   kubelet            Created container redis-container
-  Normal  Started    10m   kubelet            Started container redis-container
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  2m13s  default-scheduler  Successfully assigned default/nginx-pod to worker
+  Normal  Pulling    2m12s  kubelet            Pulling image "nginx"
+  Normal  Pulled     2m6s   kubelet            Successfully pulled image "nginx" in 5.996991311s
+  Normal  Created    2m6s   kubelet            Created container nginx-pod
+  Normal  Started    2m5s   kubelet            Started container nginx-pod
 ```
 
 
@@ -523,7 +462,7 @@ root@master:~# kubectl edit pod nginx-pod
 ## Show logs of a pod
 
 ```bash
-root@master:~# k logs nginx-pod
+root@master:~# kubectl logs nginx-pod
 
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
@@ -546,7 +485,7 @@ root@master:~# k logs nginx-pod
 
 
 ```bash 
-root@master:~# k logs multi-container-pod redis-container
+root@master:~# kubectl logs multi-container-pod redis-container
 
 1:C 07 Apr 2022 15:47:29.420 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
 1:C 07 Apr 2022 15:47:29.420 # Redis version=6.2.6, bits=64, commit=00000000, modified=0, pid=1, just started
