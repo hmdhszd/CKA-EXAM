@@ -47,7 +47,7 @@ nginx-rs   3         3         3       2m41s
 
 
 
-## Edit a pod with yaml file
+## Edit a ReplicaSets with yaml file
 
 ```bash
 root@master:~# kubectl edit -f nginx-replicaset.yaml
@@ -57,7 +57,7 @@ replicaset.apps/nginx-rs edited
 
 
 
-## Describe a pod with yaml file
+## Describe a ReplicaSets with yaml file
 
 ```bash
 root@master:~# kubectl describe -f nginx-replicaset.yaml
@@ -89,7 +89,7 @@ Events:
 ```
 
 
-## Delete a pod with yaml file
+## Delete a ReplicaSets with yaml file
 
 ```bash
 root@master:~# kubectl delete -f nginx-replicaset.yaml
@@ -351,7 +351,7 @@ replicaset.apps/nginx-rs edited
 ```
 
 
-## Show logs of a pod of a ReplicaSet
+## Show logs of a ReplicaSets of a ReplicaSet
 
 ```bash
 root@master:~# kubectl logs nginx-rs-
@@ -380,21 +380,10 @@ root@master:~# kubectl logs nginx-rs-6xv65
 
 
 
-## Delete a pod
+## Delete a ReplicaSets
 
 ```bash
 root@master:~# kubectl delete rs nginx-rs
 
 replicaset.apps "nginx-rs" deleted
-```
-
-
-## Get info of pods using TOP command
-
-```bash
-kubectl top pods
-kubectl top pods --sort-by cpu
-kubectl top pods --sort-by memory
-kubectl top pods --sort-by cpu -n kube-system > cpu.txt
-kubectl top pods --sort-by memory --all-namespaces
 ```
