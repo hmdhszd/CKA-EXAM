@@ -28,6 +28,143 @@ spec:
 EOF
 ```
 
+
+```bash
+root@master:~# kubectl apply -f multi-container-pod.yaml 
+
+pod/multi-container-pod created
+```
+
+
+
+```bash
+root@master:~# kubectl get -f multi-container-pod.yaml
+
+NAME                  READY   STATUS    RESTARTS      AGE
+multi-container-pod   2/2     Running   2 (24m ago)   15h
+```
+
+
+
+
+## Edit a pod with yaml file
+
+```bash
+root@master:~# kubectl edit -f multi-container-pod.yaml
+
+pod/multi-container-pod edited
+```
+
+
+
+## Describe a pod with yaml file
+
+```bash
+root@master:~# kubectl describe -f multi-container-pod.yaml 
+Name:         multi-container-pod
+Namespace:    default
+Priority:     0
+Node:         worker/192.168.100.104
+Start Time:   Thu, 07 Apr 2022 15:47:20 +0000
+Labels:       app=nginx
+              tier=dev
+Annotations:  cni.projectcalico.org/containerID: 73704f665131debea1e50e1de52a03a0662a58a1e61072c7df404aaa2be0f55a
+              cni.projectcalico.org/podIP: 10.244.171.92/32
+              cni.projectcalico.org/podIPs: 10.244.171.92/32
+Status:       Running
+IP:           10.244.171.92
+IPs:
+  IP:  10.244.171.92
+Containers:
+  nginx-container:
+    Container ID:   docker://eeba955782bdd1accc9a43aad2d2346ce844cf8f40e8df5a4fa61eba0c4e2b5c
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:2275af0f20d71b293916f1958f8497f987b8d8fd8113df54635f2a5915002bf1
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 08 Apr 2022 06:52:21 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Thu, 07 Apr 2022 15:47:25 +0000
+      Finished:     Fri, 08 Apr 2022 06:51:17 +0000
+    Ready:          True
+    Restart Count:  1
+    Environment:
+      DEMO_GREETING_ENV:  Hello from the environement
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vtp4f (ro)
+  redis-container:
+    Container ID:   docker://7cb0acf894cdcd2aa2e0d8d38679c41ffb93a19d39e0ad0b19b0f21aaffefffc
+    Image:          redis
+    Image ID:       docker-pullable://redis@sha256:69a3ab2516b560690e37197b71bc61ba245aafe4525ebdece1d8a0bc5669e3e2
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Fri, 08 Apr 2022 06:52:24 +0000
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Thu, 07 Apr 2022 15:47:29 +0000
+      Finished:     Fri, 08 Apr 2022 05:20:21 +0000
+    Ready:          True
+    Restart Count:  1
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vtp4f (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-vtp4f:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason          Age                From               Message
+  ----    ------          ----               ----               -------
+  Normal  Scheduled       15h                default-scheduler  Successfully assigned default/multi-container-pod to worker
+  Normal  Pulling         15h                kubelet            Pulling image "nginx"
+  Normal  Pulled          15h                kubelet            Successfully pulled image "nginx" in 3.719443283s
+  Normal  Created         15h                kubelet            Created container nginx-container
+  Normal  Started         15h                kubelet            Started container nginx-container
+  Normal  Pulling         15h                kubelet            Pulling image "redis"
+  Normal  Pulled          15h                kubelet            Successfully pulled image "redis" in 3.689370068s
+  Normal  Created         15h                kubelet            Created container redis-container
+  Normal  Started         15h                kubelet            Started container redis-container
+  Normal  SandboxChanged  23m (x2 over 24m)  kubelet            Pod sandbox changed, it will be killed and re-created.
+  Normal  Pulling         23m                kubelet            Pulling image "nginx"
+  Normal  Pulled          23m                kubelet            Successfully pulled image "nginx" in 4.785987496s
+  Normal  Created         23m                kubelet            Created container nginx-container
+  Normal  Started         23m                kubelet            Started container nginx-container
+  Normal  Pulling         23m                kubelet            Pulling image "redis"
+  Normal  Pulled          23m                kubelet            Successfully pulled image "redis" in 3.125366656s
+  Normal  Created         23m                kubelet            Created container redis-container
+  Normal  Started         23m                kubelet            Started container redis-container
+
+```
+
+
+## Delete a pod with yaml file
+
+```bash
+root@master:~# kubectl delete -f multi-container-pod.yaml
+
+pod "multi-container-pod" deleted
+```
+
+
+
 check the status of the pod:
 
 ```bash
@@ -62,6 +199,24 @@ nginx-pod   1/1     Running   0          7s
 root@master:~# kubectl get pods -o wide
 NAME                  READY   STATUS    RESTARTS   AGE     IP              NODE     NOMINATED NODE   READINESS GATES
 multi-container-pod   2/2     Running   0          7m20s   10.244.171.83   worker   <none>           <none>
+
+```
+
+## print pods with d
+
+```bash
+root@master:~# kubectl get pods --show-labels
+
+NAME                  READY   STATUS    RESTARTS      AGE   LABELS
+multi-container-pod   2/2     Running   2 (20m ago)   15h   app=nginx,tier=dev
+nginx-pod             1/1     Running   0             10m   run=nginx-pod
+```
+
+```bash
+root@master:~# k get pods -l app=nginx
+
+NAME                  READY   STATUS    RESTARTS      AGE
+multi-container-pod   2/2     Running   2 (21m ago)   15h
 
 ```
 
@@ -513,4 +668,11 @@ kubectl top pods --sort-by cpu
 kubectl top pods --sort-by memory
 kubectl top pods --sort-by cpu -n kube-system > cpu.txt
 kubectl top pods --sort-by memory --all-namespaces
+```
+
+
+## 
+
+```bash
+
 ```
