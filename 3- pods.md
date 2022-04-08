@@ -190,7 +190,7 @@ multi-container-pod   2/2     Running   0          6m54s   10.244.171.94   worke
 nginx-pod             1/1     Running   0          24m     10.244.171.93   worker   <none>           <none>
 ```
 
-## print pods with d
+## print pods with labels
 
 ```bash
 root@master:~# kubectl get pods --show-labels
