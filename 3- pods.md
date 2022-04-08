@@ -51,7 +51,7 @@ pod/nginx-pod created
 ```
 
 ```bash
-root@master:~# k get pods
+root@master:~# kubectl get pods
 
 NAME        READY   STATUS    RESTARTS   AGE
 nginx-pod   1/1     Running   0          7s
