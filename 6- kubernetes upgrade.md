@@ -132,5 +132,5 @@ Server Version: version.Info{Major:"1", Minor:"23", GitVersion:"v1.23.5", GitCom
 ```
 
 ##
-## We should do this proces in all kubernetes nodes
+## We should do this process in all kubernetes nodes
 ##
