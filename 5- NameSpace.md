@@ -224,3 +224,62 @@ root@master:~# kubectl delete ns prod
 namespace "prod" deleted
 ```
 
+
+
+## Delete a pod in a specific NameSpace
+
+```bash
+cat <<EOF >>pod-in-QA-Namespace.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-in-qa-namespace-yaml
+  namespace: qa-namespace
+  labels:
+    app: nginx
+
+spec:
+
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - containerPort: 80
+EOF
+```
+
+get pods of a specific NameSpace:
+
+```bash
+root@master:~# kubectl apply -f pod-in-QA-Namespace.yaml
+
+pod/nginx-pod-in-qa-namespace-yaml created
+```
+
+```bash
+root@master:~# kubectl run nginx-pod-in-qa-namespace-commandline --image=nginx --namespace=qa-namespace
+
+pod/nginx-pod-in-qa-namespace-commandline created
+```
+
+
+```bash
+root@master:~# kubectl get pods -n qa-namespace
+
+NAME                                    READY   STATUS    RESTARTS   AGE
+nginx-pod-in-qa-namespace-commandline   1/1     Running   0          2m58s
+nginx-pod-in-qa-namespace-yaml          1/1     Running   0          101s
+```
+
+
+## Change NameSpace permanently:
+
+```bash
+root@master:~# kubectl config set-context --current --namespace=ns-namespace
+Context "kubernetes-admin@kubernetes" modified.
+
+
+root@master:~# kubectl config view | grep namespace
+    namespace: ns-namespace
+```
