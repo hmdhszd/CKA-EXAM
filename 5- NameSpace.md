@@ -110,7 +110,7 @@ NAME           STATUS   AGE
 qa-namespace   Active   31s
 ```
 
-## print NameSpace with labels
+## Print NameSpace with labels
 
 ```bash
 root@master:~# kubectl get ns qa-namespace --show-labels
@@ -142,7 +142,7 @@ status:
 ```
 
 
-## json output
+## JSON output
 
 ```bash
 root@master:~# kubectl get ns qa-namespace -o json
@@ -170,7 +170,7 @@ root@master:~# kubectl get ns qa-namespace -o json
 ```
 
 
-## print all name spaces:
+## Print all name spaces:
 
 ```bash
 root@master:~# kubectl get ns 
@@ -188,7 +188,7 @@ tigera-operator        Active        7d1h
 ```
 
 
-## describe NameSpace
+## Describe NameSpace
 
 ```bash
 root@master:~# kubectl describe ns prod
@@ -249,7 +249,7 @@ spec:
 EOF
 ```
 
-get pods of a specific NameSpace:
+## Get pods of a specific NameSpace:
 
 ```bash
 root@master:~# kubectl apply -f pod-in-QA-Namespace.yaml
