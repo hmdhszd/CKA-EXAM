@@ -37,8 +37,8 @@ Ubuntu/Debian:
 
 ```bash
 root@master:~# 	apt-mark unhold kubeadm && \
-				apt-get update && apt-get install -y kubeadm=1.23.5-00 && \
-				apt-mark hold kubeadm
+apt-get update && apt-get install -y kubeadm=1.23.5-00 && \
+apt-mark hold kubeadm
 ```
 
 
@@ -83,8 +83,8 @@ Ubuntu/Debian:
 ```bash
 
 root@master:~# 	apt-mark unhold kubelet kubectl && \
-				apt-get update && apt-get install -y kubelet=1.23.x-00 kubectl=1.23.x-00 && \
-				apt-mark hold kubelet kubectl
+apt-get update && apt-get install -y kubelet=1.23.x-00 kubectl=1.23.x-00 && \
+apt-mark hold kubelet kubectl
 ```
 
 
@@ -94,13 +94,12 @@ CentOS/RHEL:
 
 ```bash
 root@master:~# yum install -y kubelet-1.23.x-0 kubectl-1.23.x-0 --disableexcludes=kubernetes
+```
 
+```bash
 root@master:~# systemctl daemon-reload 
 root@master:~# systemctl restart kubelet
 ```
-
-
-
 
 
 At the end, we should make the master node schedulable again:
