@@ -1,11 +1,3 @@
-#### What is Max surge and Max unavailable?
-
-maxSurge is an optional field that specifies the maximum number of Pods that can be created over the desired number of Pods. The value can be an absolute number (for example, 5) or a percentage of desired Pods (for example, 10%). The value cannot be 0 if MaxUnavailable is 0.
-
-maxUnavailable declares the maximum number (or percentage) of unavailable pods during the update.
-
-
-
 ## Create a Deployment with yaml file
 
 ```bash
