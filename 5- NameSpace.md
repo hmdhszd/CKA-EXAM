@@ -142,34 +142,6 @@ status:
 ```
 
 
-## JSON output
-
-```bash
-root@master:~# kubectl get ns qa-namespace -o json
-{
-    "apiVersion": "v1",
-    "kind": "Namespace",
-    "metadata": {
-        "creationTimestamp": "2022-04-14T08:28:31Z",
-        "labels": {
-            "kubernetes.io/metadata.name": "qa-namespace"
-        },
-        "name": "qa-namespace",
-        "resourceVersion": "118797",
-        "uid": "67c2f4c1-af8d-44df-b870-57aabc744584"
-    },
-    "spec": {
-        "finalizers": [
-            "kubernetes"
-        ]
-    },
-    "status": {
-        "phase": "Active"
-    }
-}
-```
-
-
 ## Print all name spaces:
 
 ```bash
