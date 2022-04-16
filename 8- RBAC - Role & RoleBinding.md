@@ -1,4 +1,4 @@
-# summary:
+# Summary:
 
 ### First, we will create the test "user account" and "namespace"
 ### Then, We will create the Role with list of actions performed in a "specific namespace"
@@ -179,243 +179,154 @@ rolebinding.rbac.authorization.k8s.io/read-pods created
 ```
 
 
-
+### Display Role and RoleBinding:
 ```bash
+root@master:~# kubectl get role -n dev-ns
 
+NAME         CREATED AT
+pod-reader   2022-04-14T16:26:25Z
 ```
 
 
 
 ```bash
+root@master:~# kubectl get rolebinding -n dev-ns
 
+NAME        ROLE              AGE
+read-pods   Role/pod-reader   12s
 ```
 
 
 
 ```bash
+root@master:~# kubectl describe role -n dev-ns
 
+Name:         pod-reader
+Labels:       <none>
+Annotations:  <none>
+PolicyRule:
+  Resources  Non-Resource URLs  Resource Names  Verbs
+  ---------  -----------------  --------------  -----
+  pods       []                 []              [get list watch]
 ```
 
 
 
 ```bash
+root@master:~# kubectl describe rolebinding -n dev-ns
 
+Name:         read-pods
+Labels:       <none>
+Annotations:  <none>
+Role:
+  Kind:  Role
+  Name:  pod-reader
+Subjects:
+  Kind  Name     Namespace
+  ----  ----     ---------
+  User  appuser  
+```
+
+
+
+## 
+## 
+# Testing RBAC:
+
+### Pod Operations: get, list, watch - in "dev-ns" namespace:
+
+```bash
+root@master:~# kubectl auth can-i get pods -n dev-ns --user=appuser
+
+yes
+
+
+root@master:~# kubectl auth can-i list pods -n dev-ns --user=appuser
+yes
 ```
 
 
 
 ```bash
+root@master:~# kubectl get pod nginx-pod -n dev-ns --user=appuser
+NAME        READY   STATUS    RESTARTS   AGE
+nginx-pod   1/1     Running   0          3h20m
 
+
+root@master:~# kubectl get pods -n dev-ns --user=appuser
+NAME        READY   STATUS    RESTARTS   AGE
+nginx-pod   1/1     Running   0          3h20m
+
+```
+
+
+### Pod Operations: get, list, watch - in "NON dev-ns" namespace:
+
+```bash
+root@master:~# kubectl auth can-i get pods -n kube-system --user=appuser
+no
+
+
+root@master:~# kubectl auth can-i list pods -n kube-system --user=appuser
+no
+
+
+root@master:~# kubectl auth can-i watch pods -n kube-system --user=appuser
+no
 ```
 
 
 
 ```bash
+root@master:~# kubectl get pods --user=appuser # queries default namespace
+Error from server (Forbidden): pods is forbidden: User "appuser" cannot list resource "pods" in API group "" in the namespace "default"
 
+
+root@master:~# kubectl get pods -n kube-system --user=appuser
+Error from server (Forbidden): pods is forbidden: User "appuser" cannot list resource "pods" in API group "" in the namespace "kube-system"
+```
+
+
+### Creating Objects in "dev-ns" namespace: 
+
+```bash
+root@master:~# kubectl auth can-i create pods -n dev-ns --user=appuser
+no
+
+
+root@master:~# kubectl auth can-i create services -n dev-ns --user=appuser
+no
+
+
+root@master:~# kubectl auth can-i create deployments -n dev-ns --user=appuser
+no
 ```
 
 
 
 ```bash
+root@master:~# kubectl run redis-pod -n dev-ns --image=redis --user=appuser
+Error from server (Forbidden): pods is forbidden: User "appuser" cannot create resource "pods" in API group "" in the namespace "dev-ns"
 
+
+root@master:~# kubectl create deploy redis-deploy -n dev-ns --image=redis --user=appuser
+error: failed to create deployment: deployments.apps is forbidden: User "appuser" cannot create resource "deployments" in API group "apps" in the namespace "dev-ns"
+```
+
+
+### Deleting Objects in "dev-ns" namespace: 
+```bash
+root@master:~# kubectl auth can-i delete pods -n dev-ns --user=appuser
+no
+root@master:~# kubectl auth can-i delete services -n dev-ns --user=appuser
+no
+root@master:~# kubectl auth can-i delete deployments -n dev-ns --user=appuser
+no
 ```
 
 
 
 ```bash
-
+root@master:~# kubectl delete pods nginx-pod -n dev-ns --user=appuser
+Error from server (Forbidden): pods "nginx-pod" is forbidden: User "appuser" cannot delete resource "pods" in API group "" in the namespace "dev-ns"
 ```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
