@@ -67,6 +67,13 @@ nginx-deployment-55d7578c57-t5qx7   1/1     Running   0          101s
 ```
 
 
+## Scale a Deployment
+
+```bash
+root@master:~# kubectl scale deployment nginx-deployment --replicas=4
+
+deployment.apps/nginx-deployment scaled
+```
 
 
 ## Edit a Deployment with yaml file
