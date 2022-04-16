@@ -53,14 +53,6 @@ configmap/my-nginx-config-yaml created
 
 
 ```bash
-root@master:~# kubectl apply -f multi-container-pod.yaml 
-
-pod/multi-container-pod created
-```
-
-
-
-```bash
 root@master:~# kubectl get -f my-env-config.yaml 
 NAME              DATA   AGE
 env-config-yaml   2      2m20s
@@ -410,10 +402,6 @@ my-nginx-config.conf
 
 
 
-root@master:~# kubectl exec cm-pod-file-vol -- cat /etc/config/etc/config/my-nginx-config.conf
-
-cat: /etc/config/etc/config/my-nginx-config.conf: No such file or directory
-command terminated with exit code 1
 root@master:~# kubectl exec cm-pod-file-vol -- cat /etc/config/my-nginx-config.conf
 server {
   listen 80;
