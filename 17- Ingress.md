@@ -64,7 +64,7 @@ job.batch/ingress-nginx-admission-patch    1/1           35s        60m
 ```
 
 
-### Local testing (Command line)
+## Test Ingress (Command line)
 
 Let's create a simple web server and the associated service:
 ```bash
@@ -82,7 +82,7 @@ service/demo exposed
 Then create an ingress resource. The following example uses an host that maps to localhost:
 ```bash
 root@master:~# kubectl create ingress demo-localhost --class=nginx \
->   --rule=demo.localdev.me/*=demo:80
+    --rule=demo.localdev.me/*=demo:80
 
 ingress.networking.k8s.io/demo-localhost created
 ```
@@ -111,151 +111,142 @@ root@master:~# curl http://demo.localdev.me:8080
 #
 #
 
-### 
-```bash
+## Test Ingress (with YAML file)
 
+First, will create two Pods and exposing these with services.
+```bash
+root@master:~# cat <<EOF >>Test-Ingress-Pod-Service-1.yml
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: cat-app
+  labels:
+    app: cat
+spec:
+  containers:
+    - name: cat-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=cat"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cat-service
+spec:
+  selector:
+    app: cat
+  ports:
+    - port: 5678  #Default port for image
+
+
+EOF
+
+```
+
+
+ 
+```bash
+root@master:~# cat <<EOF >>Test-Ingress-Pod-Service-2.yml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: dog-app
+  labels:
+    app: dog
+spec:
+  containers:
+    - name: dog-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=dog"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: dog-service
+spec:
+  selector:
+    app: dog
+  ports:
+    - port: 5678 # Default port for image
+EOF
+
+```
+
+Apply and Validate:
+```bash
+root@master:~# kubectl apply -f Test-Ingress-Pod-Service-1.yml 
+pod/cat-app created
+service/cat-service created
+
+root@master:~# kubectl apply -f Test-Ingress-Pod-Service-2.yml 
+pod/dog-app created
+service/dog-service created
+
+
+
+root@master:~# kubectl get all
+NAME          READY   STATUS    RESTARTS   AGE
+pod/cat-app   1/1     Running   0          9m46s
+pod/dog-app   1/1     Running   0          9m39s
+
+NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/cat-service   ClusterIP   10.97.136.15     <none>        5678/TCP   9m46s
+service/dog-service   ClusterIP   10.100.135.224   <none>        5678/TCP   9m39s
+service/kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP    16d
+
+```
+
+
+And then will create Ingress resource, which routes requests to these services.
+```bash
+root@master:~# cat <<EOF >>Test-Ingress-Resource.yml
+
+apiVersion: networking.k8s.io/v1  
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /cat
+          pathType: Prefix
+          backend:
+            service:
+              name: cat-service
+              port:
+                number: 5678 
+        - path: /dog
+          pathType: Prefix 
+          backend:
+            service:
+              name: dog-service
+              port:
+                number: 5678            
+EOF
 ```
 
 
 ### 
 ```bash
+root@master:~# kubectl apply -f Test-Ingress-Resource.yml
 
+ingress.networking.k8s.io/test-ingress created
+
+
+
+root@master:~# kubectl get ingress
+
+NAME           CLASS    HOSTS   ADDRESS   PORTS   AGE
+test-ingress   <none>   *                 80      65s
 ```
 
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
-
-
-### 
-```bash
-
-```
