@@ -1,18 +1,21 @@
-### Create an index.html file on your Master Node
+# Worker node
+
+### Create an index.html file on your Worker Node
 
 ```bash
-root@master:~# sudo mkdir /mnt/data
+root@worker:~# sudo mkdir /mnt/data
 
 
-root@master:~# sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
+root@worker:~# sudo sh -c "echo 'Hello from Kubernetes storage in the worker node' > /mnt/data/index.html"
 
 
-root@master:~# cat /mnt/data/index.html
-Hello from Kubernetes storage
-
+root@worker:~# cat /mnt/data/index.html
+Hello from Kubernetes storage in the worker node
 ```
 
 
+
+# Master node
 
 ### Create a PersistentVolume
 
@@ -35,7 +38,7 @@ spec:
 EOF
 ```
 
-Apply anv Validate:
+Apply and Validate:
 
 ```bash
 root@master:~# kubectl apply -f pv-volume.yaml
@@ -70,7 +73,7 @@ EOF
 ```
 
 
-Apply anv Validate:
+Apply and Validate:
 
 ```bash
 root@master:~# kubectl apply -f pv-claim.yaml 
@@ -90,292 +93,67 @@ task-pv-volume   10Gi       RWO            Retain           Bound    default/tas
 ```
 
 
+### Create a Pod
 
 ```bash
-
+root@master:~# cat <<EOF >>pv-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+EOF
 ```
 
 
 
 ```bash
+root@master:~# kubectl apply -f pv-pod.yaml
 
+pod/task-pv-pod created
+
+
+
+
+root@master:~# kubectl get pod task-pv-pod -o wide
+
+NAME          READY   STATUS    RESTARTS   AGE   IP              NODE     NOMINATED NODE   READINESS GATES
+task-pv-pod   1/1     Running   0          11s   10.244.171.97   worker   <none>           <none>
 ```
 
+
+## Test from master node:
 
 
 ```bash
+root@master:~# kubectl exec -it task-pv-pod -- /bin/bash
 
+
+root@task-pv-pod:/# curl localhost
+Hello from Kubernetes storage in the worker node
+
+
+root@task-pv-pod:/# sh -c "echo 'Hello from Kubernetes storage inside pod in master node' > /usr/share/nginx/html/index.html"
 ```
 
 
+## Test from worker node:
 
 ```bash
+root@worker:~# cat /mnt/data/index.html
 
+Hello from Kubernetes storage inside pod in master node
 ```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
-```bash
-
-```
-
-
-
