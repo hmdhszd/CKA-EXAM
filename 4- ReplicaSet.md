@@ -270,7 +270,7 @@ replicaset.apps/nginx-rs edited
 ```
 
 
-## Show logs of a ReplicaSets of a ReplicaSet
+## Show logs of a POD of a ReplicaSet
 
 ```bash
 root@master:~# kubectl get pods
