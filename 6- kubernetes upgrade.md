@@ -143,7 +143,7 @@ We should do this process for all Kubernetes Master nodes
 Ubuntu/Debian:
 
 ```bash
-root@worker1:~# 	apt-mark unhold kubeadm && \
+root@worker1:~# apt-mark unhold kubeadm && \
 apt-get update && apt-get install -y kubeadm=1.23.5-00 && \
 apt-mark hold kubeadm
 ```
@@ -152,12 +152,12 @@ apt-mark hold kubeadm
 CentOS/RHEL:
 
 ```bash
-yum install -y kubeadm-1.23.5-0 --disableexcludes=kubernetes
+root@worker1:~# yum install -y kubeadm-1.23.5-0 --disableexcludes=kubernetes
 ```
 
 ## Call "kubeadm upgrade"
 
-# For worker nodes this upgrades the local kubelet configuration:
+### For worker nodes this upgrades the local kubelet configuration:
 
 ```bash
 root@worker1:~# kubeadm upgrade node
@@ -176,7 +176,7 @@ Ubuntu/Debian:
 
 ```bash
 
-root@worker1:~# 	apt-mark unhold kubelet kubectl && \
+root@worker1:~# apt-mark unhold kubelet kubectl && \
 apt-get update && apt-get install -y kubelet=1.23.x-00 kubectl=1.23.x-00 && \
 apt-mark hold kubelet kubectl
 ```
