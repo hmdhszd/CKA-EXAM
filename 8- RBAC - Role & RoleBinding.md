@@ -330,3 +330,9 @@ no
 root@master:~# kubectl delete pods nginx-pod -n dev-ns --user=appuser
 Error from server (Forbidden): pods "nginx-pod" is forbidden: User "appuser" cannot delete resource "pods" in API group "" in the namespace "dev-ns"
 ```
+
+#
+#
+### The difference between a Role and a ClusterRole is the scope:
+in a Role, the rules are applicable to a single namespace, whereas a ClusterRole is cluster-wide, so the rules are applicable to more than one namespace. ClusterRoles can define rules for cluster-scoped resources (such as nodes) as well.
+#
