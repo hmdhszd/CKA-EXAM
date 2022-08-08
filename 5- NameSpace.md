@@ -198,7 +198,7 @@ namespace "prod" deleted
 
 
 
-## Delete a pod in a specific NameSpace
+## Create a pod in a specific NameSpace
 
 ```bash
 cat <<EOF >>pod-in-QA-Namespace.yaml
