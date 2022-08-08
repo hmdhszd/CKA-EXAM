@@ -68,7 +68,7 @@ root@master:~# kubeadm upgrade plan
 Then, apply the upgrade plan:
 
 ```bash
-root@master:~# kubeadm upgrade v1.23.x
+root@master:~# kubeadm upgrade apply v1.23.x
 
 [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.23.x". Enjoy!
 
