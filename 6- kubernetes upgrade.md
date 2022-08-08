@@ -1,4 +1,4 @@
-First we should upgrade "kubeadm" then "kubernetes" then "kubelet" and "kubectl"
+First we should upgrade "kubeadm" then "kubernetes cluster" then "kubelet" and "kubectl"
 
 
 
