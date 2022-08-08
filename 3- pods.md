@@ -178,7 +178,6 @@ pod/nginx-pod created
 ```bash
 root@master:~# kubectl get pods
 NAME                  READY   STATUS    RESTARTS   AGE
-multi-container-pod   2/2     Running   0          7m18s
 nginx-pod             1/1     Running   0          24m
 ```
 
@@ -186,7 +185,6 @@ nginx-pod             1/1     Running   0          24m
 ```bash
 root@master:~# kubectl get pods -o wide
 NAME                  READY   STATUS    RESTARTS   AGE     IP              NODE     NOMINATED NODE   READINESS GATES
-multi-container-pod   2/2     Running   0          6m54s   10.244.171.94   worker   <none>           <none>
 nginx-pod             1/1     Running   0          24m     10.244.171.93   worker   <none>           <none>
 ```
 
@@ -196,15 +194,14 @@ nginx-pod             1/1     Running   0          24m     10.244.171.93   worke
 root@master:~# kubectl get pods --show-labels
 
 NAME                  READY   STATUS    RESTARTS      AGE   LABELS
-multi-container-pod   2/2     Running   2 (20m ago)   15h   app=nginx,tier=dev
 nginx-pod             1/1     Running   0             10m   run=nginx-pod
 ```
 
 ```bash
-root@master:~# k get pods -l app=nginx
+root@master:~# k get pods -l run=nginx-pod
 
 NAME                  READY   STATUS    RESTARTS      AGE
-multi-container-pod   2/2     Running   2 (21m ago)   15h
+nginx-pod             1/1     Running   0             10m
 ```
 
 
