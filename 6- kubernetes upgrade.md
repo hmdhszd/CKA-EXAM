@@ -130,7 +130,76 @@ root@master:~# kubectl version
 Client Version: version.Info{Major:"1", Minor:"23", GitVersion:"v1.23.5", GitCommit:"c285e781331a3785a7f436042c65c5641ce8a9e9", GitTreeState:"clean", BuildDate:"2022-03-16T15:58:47Z", GoVersion:"go1.17.8", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"23", GitVersion:"v1.23.5", GitCommit:"c285e781331a3785a7f436042c65c5641ce8a9e9", GitTreeState:"clean", BuildDate:"2022-03-16T15:52:18Z", GoVersion:"go1.17.8", Compiler:"gc", Platform:"linux/amd64"}
 ```
+We should do this process for all Kubernetes Master nodes
 
 ##
-## We should do this process in all kubernetes nodes
+## Then we should upgrade worker nodes one-by-one
 ##
+
+
+
+## Upgrade kubeadm
+
+Ubuntu/Debian:
+
+```bash
+root@worker1:~# 	apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm=1.23.5-00 && \
+apt-mark hold kubeadm
+```
+
+
+CentOS/RHEL:
+
+```bash
+yum install -y kubeadm-1.23.5-0 --disableexcludes=kubernetes
+```
+
+## Call "kubeadm upgrade"
+
+# For worker nodes this upgrades the local kubelet configuration:
+
+```bash
+root@worker1:~# kubeadm upgrade node
+```
+
+## make the Worker node unschedulable and gracefully terminate the pod
+
+```bash
+root@master:~# kubectl drain worker1 --ignore-daemonsets 
+```
+
+
+## Upgrade kubelet and kubectl 
+
+Ubuntu/Debian:
+
+```bash
+
+root@worker1:~# 	apt-mark unhold kubelet kubectl && \
+apt-get update && apt-get install -y kubelet=1.23.x-00 kubectl=1.23.x-00 && \
+apt-mark hold kubelet kubectl
+```
+
+
+
+
+CentOS/RHEL:
+
+```bash
+root@worker1:~# yum install -y kubelet-1.23.x-0 kubectl-1.23.x-0 --disableexcludes=kubernetes
+```
+
+```bash
+root@worker1:~# systemctl daemon-reload 
+root@worker1:~# systemctl restart kubelet
+```
+
+
+At the end, we should make the master node schedulable again:
+
+```bash
+root@master:~# kubectl uncordon worker1 
+```
+
+
