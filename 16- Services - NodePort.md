@@ -1,6 +1,6 @@
 
 
-# Creating Sample Deployment and Service "Declaratively (Using YAML file)":
+# Create a sample Deployment and NodePort Service "Declaratively (Using YAML file)":
 
 ### Deployment YAML file:
 ```bash
@@ -70,7 +70,7 @@ service/my-service created
 
 #
 
-# Creating Deployment and NodePort Service Application "Imperatively (From Command promp)":
+# Create a sample Deployment and NodePort Service "Imperatively (From Command prompt)":
 
 ### Create Sample Deployment
 ```bash
